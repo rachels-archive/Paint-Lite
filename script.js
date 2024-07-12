@@ -90,7 +90,8 @@ function drawing(e) {
   ctx.strokeStyle = selectedColour;
   ctx.fillStyle = selectedColour;
 
-  if (selectedTool == "brush") {
+  if (selectedTool == "brush" || selectedTool == "eraser") {
+    ctx.strokeStyle = selectedTool == "eraser" ? "#fff" : selectedColour;
     ctx.beginPath();
     ctx.moveTo(startX, startY);
     getPosition(e);
