@@ -3,7 +3,8 @@ const canvas = document.querySelector("canvas"),
   fillColour = document.querySelector("#fill-colour"),
   sizeSlider = document.querySelector("#size-slider"),
   colourOptions = document.querySelectorAll(".palette .option"),
-  ctx = canvas.getContext("2d");
+  clearButton = document.querySelector(".clear-button");
+ctx = canvas.getContext("2d");
 
 if (!canvas.getContext) {
   alert("This browser is not supported");
@@ -131,3 +132,16 @@ colourOptions.forEach((option) => {
 sizeSlider.addEventListener("change", () => {
   brushWidth = sizeSlider.value;
 });
+
+clearButton.addEventListener("click", () => {
+  confirmClear();
+});
+
+function confirmClear() {
+  let result = confirm("Do you want to proceed?");
+  if (result) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  } else {
+    return;
+  }
+}
