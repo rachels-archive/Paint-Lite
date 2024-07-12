@@ -1,5 +1,7 @@
 const canvas = document.querySelector("canvas"),
-  ctx = canvas.getContext("2d");
+  toolBtns = document.querySelectorAll(".tool"),
+  fillColour = document.querySelector("#fill-colour");
+ctx = canvas.getContext("2d");
 
 if (!canvas.getContext) {
   alert("This browser is not supported");
@@ -18,8 +20,12 @@ function resize() {
   canvas.height = canvas.offsetHeight;
 }
 
+// global variables w default value
 let coord = { x: 0, y: 0 };
+let startX, startY, snapshot;
 let isDrawing = false;
+brushWidth = 3;
+selectedTool = "brush";
 
 function getPosition(e) {
   coord.x = e.clientX - canvas.offsetLeft;
@@ -28,30 +34,52 @@ function getPosition(e) {
 
 function startDrawing(e) {
   isDrawing = true;
+  startX = e.offsetX;
+  startY = e.offsetY;
   getPosition(e);
+
+  //copying canvas data and pass as snapshot value
+  // to avoid multiple copies of shapes when drawing shapes
+  snapshot = ctx.getImageData(0, 0, canvas.width, canvas.height);
 }
 
 function stopDrawing() {
   isDrawing = false;
 }
 
+function drawRectangle(e) {
+  console.log(fillColour.checked);
+  if (!fillColour.checked) {
+    return ctx.strokeRect(e.offsetX, e.offsetY, startX - e.offsetX, startY - e.offsetY);
+  }
+  ctx.fillRect(e.offsetX, e.offsetY, startX - e.offsetX, startY - e.offsetY);
+}
+
 function drawing(e) {
   if (!isDrawing) return;
 
-  ctx.beginPath();
-  ctx.lineWidth = 5;
+  ctx.lineWidth = brushWidth;
   ctx.lineCap = "round";
-  ctx.moveTo(coord.x, coord.y);
-  getPosition(e);
 
-  ctx.lineTo(coord.x, coord.y);
-  ctx.stroke();
+  if (selectedTool == "brush") {
+    ctx.beginPath();
+    ctx.moveTo(coord.x, coord.y);
+    getPosition(e);
+
+    ctx.lineTo(coord.x, coord.y);
+    ctx.stroke();
+  } else if (selectedTool == "rectangle") {
+    // add copied canvas data to this canvas
+    ctx.putImageData(snapshot, 0, 0);
+    drawRectangle(e);
+  }
 }
 
-/*
-const drawing = (e) => {
-  if (!isDrawing) return;
-  ctx.lineTo(e.offsetX, e.offsetY);
-  ctx.stroke();
-};
-*/
+toolBtns.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    document.querySelector(".options .active").classList.remove("active");
+    btn.classList.add("active");
+    selectedTool = btn.id;
+    console.log(selectedTool);
+  });
+});
