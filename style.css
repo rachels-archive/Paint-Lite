@@ -1,0 +1,141 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: 0;
+  font-family: sans-serif;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: rgb(105, 180, 255);
+}
+
+ul {
+  list-style: none;
+}
+
+.container {
+  display: flex;
+  width: 100%;
+  max-width: 1050px;
+  gap: 10px;
+  padding: 10px;
+}
+
+section {
+  background: #fff;
+  border-radius: 10px;
+}
+
+.tools-section {
+  padding: 15px;
+}
+
+.row .options {
+  margin: 10px 0 0 5px;
+}
+
+.tools-section .row {
+  margin-bottom: 20px;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.option :where(span, label) {
+  color: gray;
+  padding: 10px;
+}
+
+.option:is(:hover, .active) img {
+  filter: invert(17%) sepia(90%) saturate(3000%) hue-rotate(900deg) brightness(100%) contrast(100%);
+}
+
+#fill-colour:checked ~ label {
+  color: dodgerblue;
+}
+
+.option:is(:hover, .active) :where(span, label) {
+  color: #1e90ff;
+}
+
+.option #size-slider {
+  width: 100%;
+  height: 5px;
+}
+
+.option #colour-picker {
+  opacity: 0;
+  cursor: pointer;
+}
+.palette .options {
+  display: flex;
+  justify-content: space-between;
+}
+
+.palette .option:nth-child(1) {
+  background: red;
+}
+.palette .option:nth-child(2) {
+  background: blue;
+}
+.palette .option:nth-child(3) {
+  background: green;
+}
+.palette .option:nth-child(4) {
+  background: orange;
+}
+.palette .option:nth-child(5) {
+  background: purple;
+}
+
+.palette .option {
+  height: 20px;
+  width: 20px;
+  background: red;
+}
+
+.palette .option:is(:hover, .active) {
+  outline: 2px solid rgb(0, 0, 0);
+}
+
+.buttons button {
+  width: 100%;
+  color: #fff;
+  border: none;
+  outline: none;
+  padding: 10px 0;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.buttons .clear-button {
+  color: rgb(145, 145, 145);
+  border: 1px solid rgb(145, 145, 145);
+}
+
+.buttons .save-button {
+  color: rgb(255, 255, 255);
+  background-color: dodgerblue;
+}
+
+.buttons .save-button:hover {
+  color: rgb(255, 255, 255);
+  background-color: rgb(0, 126, 252);
+}
+
+.draw-section {
+  flex: 1;
+}
+
+.draw-section canvas {
+  width: 100%;
+  height: 100%;
+}
