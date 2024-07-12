@@ -1,11 +1,18 @@
 const canvas = document.querySelector("canvas"),
   toolBtns = document.querySelectorAll(".tool"),
-  fillColour = document.querySelector("#fill-colour");
+  fillColour = document.querySelector("#fill-colour"),
+  sizeSlider = document.querySelector("#size-slider");
 ctx = canvas.getContext("2d");
 
 if (!canvas.getContext) {
   alert("This browser is not supported");
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+  const brushSizeInput = document.querySelector("#size-slider");
+  console.log("Initial value:", brushSizeInput.value);
+  // Any other initialization code for the range input
+});
 
 window.addEventListener("load", () => {
   resize();
@@ -106,4 +113,8 @@ toolBtns.forEach((btn) => {
     selectedTool = btn.id;
     console.log(selectedTool);
   });
+});
+
+sizeSlider.addEventListener("change", () => {
+  brushWidth = sizeSlider.value;
 });
