@@ -55,6 +55,16 @@ function drawRectangle(e) {
   ctx.fillRect(e.offsetX, e.offsetY, startX - e.offsetX, startY - e.offsetY);
 }
 
+function drawCircle(e) {
+  ctx.beginPath(); // Start a new path
+  let radius = Math.sqrt(Math.pow(startX - e.offsetX, 2) + Math.pow(startY - e.offsetY, 2));
+
+  ctx.arc(startX, startY, radius, 0, 2 * Math.PI);
+  //ctx.stroke();
+
+  fillColour.checked ? ctx.fill() : ctx.stroke();
+}
+
 function drawing(e) {
   if (!isDrawing) return;
 
@@ -72,6 +82,9 @@ function drawing(e) {
     // add copied canvas data to this canvas
     ctx.putImageData(snapshot, 0, 0);
     drawRectangle(e);
+  } else if (selectedTool == "circle") {
+    ctx.putImageData(snapshot, 0, 0);
+    drawCircle(e);
   }
 }
 
