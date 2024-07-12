@@ -121,12 +121,12 @@ section {
   border: 1px solid rgb(145, 145, 145);
 }
 
-.buttons .save-button {
+.buttons .download-button {
   color: rgb(255, 255, 255);
   background-color: dodgerblue;
 }
 
-.buttons .save-button:hover {
+.buttons .download-button:hover {
   color: rgb(255, 255, 255);
   background-color: rgb(0, 126, 252);
 }

@@ -3,21 +3,17 @@ const canvas = document.querySelector("canvas"),
   fillColour = document.querySelector("#fill-colour"),
   sizeSlider = document.querySelector("#size-slider"),
   colourOptions = document.querySelectorAll(".palette .option"),
-  clearButton = document.querySelector(".clear-button");
+  clearButton = document.querySelector(".clear-button"),
+  downloadButton = document.querySelector(".download-button");
 ctx = canvas.getContext("2d");
 
 if (!canvas.getContext) {
   alert("This browser is not supported");
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-  const brushSizeInput = document.querySelector("#size-slider");
-  console.log("Initial value:", brushSizeInput.value);
-  // Any other initialization code for the range input
-});
-
 window.addEventListener("load", () => {
   resize();
+  setCanvasBackground();
   canvas.addEventListener("mousedown", startDrawing);
   canvas.addEventListener("mouseup", stopDrawing);
   canvas.addEventListener("mousemove", drawing);
@@ -29,8 +25,13 @@ function resize() {
   canvas.height = canvas.offsetHeight;
 }
 
-// global variables w default value
+function setCanvasBackground() {
+  ctx.fillStyle = "#fff";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = selectedColour;
+}
 
+// global variables w default value
 let startX, startY, snapshot;
 let isDrawing = false;
 brushWidth = 3;
@@ -137,10 +138,17 @@ clearButton.addEventListener("click", () => {
   confirmClear();
 });
 
+downloadButton.addEventListener("click", () => {
+  const url = document.createElement("a");
+  url.download = `${Date.now()}.jpg`;
+  url.href = canvas.toDataURL();
+  url.click();
+});
+
 function confirmClear() {
   let result = confirm("Do you want to proceed?");
   if (result) {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    setCanvasBackground();
   } else {
     return;
   }
