@@ -4,9 +4,67 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
     <title>Document</title>
   </head>
   <body>
-    <script src="srcipt.js"></script>
+    <div class="container">
+      <section class="tools-section">
+        <div class="row">
+          <label for="" class="title">Shapes</label>
+          <ul class="options">
+            <li class="option">
+              <img src="assets/rectangle.svg" alt="" />
+              <span>Rectangle</span>
+            </li>
+            <li class="option">
+              <img src="assets/circle.svg" alt="" />
+              <span>Circle</span>
+            </li>
+            <li class="option">
+              <img src="assets/triangle.svg" alt="" />
+              <span>Triangle</span>
+            </li>
+            <li class="option">
+              <input type="checkbox" id="fill-colour" />
+              <label for="fill-colour">Fill Colour</label>
+            </li>
+          </ul>
+        </div>
+        <div class="row">
+          <label for="" class="title">Tools</label>
+          <ul class="options">
+            <li class="option active">
+              <img src="assets/brush.svg" alt="" />
+              <span>Brush</span>
+            </li>
+            <li class="option">
+              <img src="assets/eraser.svg" alt="" />
+              <span>Eraser</span>
+            </li>
+            <li class="option">
+              <input type="range" id="size-slider" />
+            </li>
+          </ul>
+        </div>
+        <div class="row palette">
+          <label for="" class="title">Colours</label>
+          <ul class="options">
+            <li class="option selected"></li>
+            <li class="option"></li>
+            <li class="option"></li>
+            <li class="option"></li>
+            <li class="option"><input type="color" value="#800080" id="colour-picker" /></li>
+          </ul>
+        </div>
+        <div class="row buttons">
+          <button class="clear-button">Clear Canvas</button>
+          <button class="save-button">Save As Image</button>
+        </div>
+      </section>
+      <section class="draw-section">
+        <canvas></canvas>
+      </section>
+    </div>
   </body>
 </html>
