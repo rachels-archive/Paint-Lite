@@ -1,8 +1,9 @@
 const canvas = document.querySelector("canvas"),
   toolBtns = document.querySelectorAll(".tool"),
   fillColour = document.querySelector("#fill-colour"),
-  sizeSlider = document.querySelector("#size-slider");
-ctx = canvas.getContext("2d");
+  sizeSlider = document.querySelector("#size-slider"),
+  colourOptions = document.querySelectorAll(".palette .option"),
+  ctx = canvas.getContext("2d");
 
 if (!canvas.getContext) {
   alert("This browser is not supported");
@@ -33,6 +34,7 @@ let startX, startY, snapshot;
 let isDrawing = false;
 brushWidth = 3;
 selectedTool = "brush";
+selectedColour = "#000";
 
 function getPosition(e) {
   startX = e.clientX - canvas.offsetLeft;
@@ -85,6 +87,8 @@ function drawing(e) {
 
   ctx.lineWidth = brushWidth;
   ctx.lineCap = "round";
+  ctx.strokeStyle = selectedColour;
+  ctx.fillStyle = selectedColour;
 
   if (selectedTool == "brush") {
     ctx.beginPath();
@@ -112,6 +116,14 @@ toolBtns.forEach((btn) => {
     btn.classList.add("active");
     selectedTool = btn.id;
     console.log(selectedTool);
+  });
+});
+
+colourOptions.forEach((option) => {
+  option.addEventListener("click", () => {
+    document.querySelector(".options .selected").classList.remove("selected");
+    option.classList.add("selected");
+    selectedColour = document.querySelector(".options .selected").id;
   });
 });
 

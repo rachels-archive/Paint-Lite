@@ -80,19 +80,19 @@ section {
 }
 
 .palette .option:nth-child(1) {
-  background: red;
+  background: #808080;
 }
 .palette .option:nth-child(2) {
-  background: blue;
+  background: black;
 }
 .palette .option:nth-child(3) {
-  background: green;
+  background: red;
 }
 .palette .option:nth-child(4) {
-  background: orange;
+  background: green;
 }
 .palette .option:nth-child(5) {
-  background: purple;
+  background: blue;
 }
 
 .palette .option {
@@ -101,7 +101,7 @@ section {
   background: red;
 }
 
-.palette .option:is(:hover, .active) {
+.palette .option:is(:hover, .selected) {
   outline: 2px solid rgb(0, 0, 0);
 }
 
