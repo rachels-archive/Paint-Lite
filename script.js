@@ -21,15 +21,15 @@ function resize() {
 }
 
 // global variables w default value
-let coord = { x: 0, y: 0 };
+
 let startX, startY, snapshot;
 let isDrawing = false;
 brushWidth = 3;
 selectedTool = "brush";
 
 function getPosition(e) {
-  coord.x = e.clientX - canvas.offsetLeft;
-  coord.y = e.clientY - canvas.offsetTop;
+  startX = e.clientX - canvas.offsetLeft;
+  startY = e.clientY - canvas.offsetTop;
 }
 
 function startDrawing(e) {
@@ -56,12 +56,20 @@ function drawRectangle(e) {
 }
 
 function drawCircle(e) {
-  ctx.beginPath(); // Start a new path
+  ctx.beginPath();
   let radius = Math.sqrt(Math.pow(startX - e.offsetX, 2) + Math.pow(startY - e.offsetY, 2));
 
   ctx.arc(startX, startY, radius, 0, 2 * Math.PI);
-  //ctx.stroke();
 
+  fillColour.checked ? ctx.fill() : ctx.stroke();
+}
+
+function drawTriangle(e) {
+  ctx.beginPath();
+  ctx.moveTo(startX, startY);
+  ctx.lineTo(e.offsetX, e.offsetY);
+  ctx.lineTo(startX * 2 - e.offsetX, e.offsetY);
+  ctx.closePath();
   fillColour.checked ? ctx.fill() : ctx.stroke();
 }
 
@@ -73,10 +81,10 @@ function drawing(e) {
 
   if (selectedTool == "brush") {
     ctx.beginPath();
-    ctx.moveTo(coord.x, coord.y);
+    ctx.moveTo(startX, startY);
     getPosition(e);
 
-    ctx.lineTo(coord.x, coord.y);
+    ctx.lineTo(startX, startY);
     ctx.stroke();
   } else if (selectedTool == "rectangle") {
     // add copied canvas data to this canvas
@@ -85,6 +93,9 @@ function drawing(e) {
   } else if (selectedTool == "circle") {
     ctx.putImageData(snapshot, 0, 0);
     drawCircle(e);
+  } else {
+    ctx.putImageData(snapshot, 0, 0);
+    drawTriangle(e);
   }
 }
 
